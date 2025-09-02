@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .double{
+            height: 250px;
+            width: 700px;
+            border: 1px solid black;
+            background-color: azure;
+            padding-left: 30px;
+            margin: 0 auto;
+        }
+        .double input{
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+         .double button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #4cafef;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+        .double button:hover {
+            background: #357abf;
+            }
+
+        .studScore{
+             height: 450px;
+            width: 700px;
+            border: 1px solid black;
+            background-color: azure;
+            padding-left: 30px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">JS Assignment</h1>
+    <div class="double">
+        <h2>Double All Values</h2>
+
+        <label>Enter numbers :</label><br>
+        <input type="text" id="userInput" placeholder="e.g. 1,2,3,4"><br>
+        <button onclick="doubleValues()">Double</button>
+        <p id="doubleResult"></p>
+
+    </div><br>
+
+    <div class="double">
+        <h2>Convert to Uppercase</h2>
+
+        <label>Enter words :</label><br>
+        <input type="text" id="userWords"><br>
+        <button onclick="uppercase()">Uppercase</button>
+        <p id="uppercaseResult"></p>
+
+    </div><br>
+
+    <div class="double">
+        <h2>Filter words by length > 5</h2>
+
+        <label>Enter words :</label><br>
+        <input type="text" id="arrUserWords"><br>
+        <button onclick="filterWords()">Uppercase</button>
+        <p id="filteredResult"></p>
+
+    </div><br>
+
+    <div class="studScore">
+        <h2>Student Score Analysis</h2>
+        <h3> Student Score data</h3>
+         <h4>  { name: 'Amit', scores: [80, 75, 90] },</h4>  
+            <h4>{ name: 'Sara', scores: [60, 70, 65] },</h4> 
+           <h4>{ name: 'John', scores: [85, 90, 92] },</h4>  
+           <h4>{ name: 'Chetan', scores: [95, 99, 94] }</h4>
+        
+        <h3>Result: </h3>
+        <p id="scoreResult"></p>
+
+    </div>
+    <script>
+        function doubleValues(){
+            let input=document.getElementById("userInput").value;
+            if(input.length==0){
+                alert("Enter value!!!!");
+            }
+            else{
+            let inputValue=input.split(",");
+            let arr=inputValue.map(num=>num*2);
+
+            document.getElementById("doubleResult").innerHTML="Double values "+arr;
+            }
+        }
+
+        function uppercase(){
+            let input=document.getElementById("userWords").value;
+            let upperCaseWords=[];
+            if (input.length === 0) {
+                alert("Please enter some words to convert into uppercase!");
+            }
+            else{
+                let inputwords=input.split(",");
+            for(let i=0;i<inputwords.length;i++)
+            {
+             upperCaseWords.push(inputwords[i].toUpperCase());
+            document.getElementById("uppercaseResult").innerHTML="UpperCase : "+upperCaseWords;}
+            }
+        }
+
+        function filterWords(){
+            let input=document.getElementById("arrUserWords").value;
+            if(input.length==0){
+                alert("Please enter some words to filter");
+            }
+            else{
+                let inputWords=input.split(",");
+                let filteredWords=inputWords.filter(words=>words.length>5);
+                document.getElementById("filteredResult").innerHTML="Filtered words "+filteredWords;
+            }
+        }
+
+
+        const students = [
+            { name: 'Amit', scores: [80, 75, 90] },
+            { name: 'Sara', scores: [60, 70, 65] },
+            { name: 'John', scores: [85, 90, 92] },
+            { name: 'Chetan', scores: [95, 99, 94] },
+            ];
+
+        let  averages=students.map(stud=>{
+            let total=stud.scores.reduce((a,b)=>a+b);
+            let avg=total/stud.scores.length;
+            document.getElementById("scoreResult").innerHTML+=stud.name+"'s Average is "+avg.toFixed()+"<br>";
+            return { name: stud.name, avg: avg };
+        });
+
+        let avgAbove85=averages.filter(score=>score.avg>85);
+        let studName=avgAbove85.map(student=>student.name);
+        document.getElementById("scoreResult").innerHTML+="Students with Avg > 85: "+studName+"<br>";
+
+
+         students
+      .map(student => {
+        let total = student.scores.reduce((a, b) => a + b, 0);
+        let avg = total / student.scores.length;
+        return { name: student.name, avg: avg };
+      })
+      .filter(stu => stu.avg > 85)
+      .forEach(stu => {
+        document.getElementById("scoreResult").innerHTML += `Topper: ${stu.name} (avg: ${stu.avg.toFixed()})\n`;
+      });
+    </script>
+
+</body>
+
+</html>
